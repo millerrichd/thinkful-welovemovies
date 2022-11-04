@@ -5,7 +5,8 @@ const cors = require("cors");
 
 var corsOptions = {
   origin: 'https://thinkful-welovemovies-frontend.vercel.app',
-  optionsSuccessStatus: 200
+  methods: "GET,PUT,POST,DELETE",
+  optionsSuccessStatus: 204
 }
 
 //router.use(cors(corsOptions));
