@@ -24,7 +24,6 @@ async function movieTheaterExists(req, res, next) {
 async function movieReviewExists(req, res, next) {
   const { movieId } = req.params;
   const foundMovies = await service.readReview(movieId);
-  console.log(foundMovies.length)
   if(foundMovies.length) {
     res.locals.movies = foundMovies;
     return next();
