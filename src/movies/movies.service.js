@@ -1,5 +1,7 @@
 const { where } = require("../db/connection");
 const knex = require("../db/connection");
+const mapProperties = require("../utils/map-properties");
+const reduceProperties = require("../utils/reduce-properties");
 
 function list(is_showing = false) {
   if(is_showing) {
@@ -28,17 +30,18 @@ function readTheater(movieId) {
     .where({"mt.movie_id": movieId});
 }
 
-async function readReview(movieId) {
-  const reviews = await knex("reviews as r")
-    .select ("r.*")
-    .where({"r.movie_id": movieId});
-  const critics = await knex("critics as c")
-    .select ("c.*");
-  reviews.forEach(review => {
-    const critic = critics.find(critic => critic.critic_id === review.critic_id)
-    review["critic"] = critic
-  })
-  return reviews;
+const addCriticsToReview = reduceProperties("review_id", {
+  preferred_name: ["critic", "preferred_name"],
+  surname: ["critic", "surname"],
+  organization_name: ["critic", "organization_name"],
+})
+
+function readReview(movieId) {
+  return knex("reviews as r")
+    .join("critics as c", "r.critic_id", "c.critic_id")
+    .select("r.*", "c.*")
+    .where({"r.movie_id": movieId})
+    .then(addCriticsToReview)
 }
 
 module.exports = {
