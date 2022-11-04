@@ -1,2 +1,2 @@
 web: npm start
-release: npm reset
+release: npm run reset
