@@ -8,14 +8,16 @@ var corsOptions = {
   optionsSuccessStatus: 200
 }
 
-router.use(cors(corsOptions));
+//router.use(cors(corsOptions));
 
 router.route("/")
-  .get(controller.list)
+  .options(cors(corsOptions))
+  .get(cors(corsOptions), controller.list)
   .all(methodNotAllowed);
 
 router.route("/:movieId")
-  .get(controller.read)
+  .options(cors(corsOptions))
+  .get(cors(corsOptions), controller.read)
   .all(methodNotAllowed);
 
 router.route("/:movieId/theaters")
@@ -23,7 +25,8 @@ router.route("/:movieId/theaters")
   .all(methodNotAllowed);
 
 router.route("/:movieId/reviews")
-  .get(controller.readReview)
+  .options(cors(corsOptions))
+  .get(cors(corsOptions), controller.readReview)
   .all(methodNotAllowed);
 
 module.exports = router;

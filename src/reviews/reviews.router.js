@@ -8,11 +8,12 @@ var corsOptions = {
   optionsSuccessStatus: 200
 }
 
-router.use(cors(corsOptions));
+//router.use(cors(corsOptions));
 
 router.route("/:reviewId")
-  .put(controller.update)
-  .delete(controller.delete)
+  .options(cors(corsOptions))
+  .put(cors(corsOptions), controller.update)
+  .delete(cors(corsOptions), controller.delete)
   .all(methodNotAllowed);
 
   module.exports = router;

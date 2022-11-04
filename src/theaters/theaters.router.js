@@ -8,10 +8,10 @@ var corsOptions = {
   optionsSuccessStatus: 200
 }
 
-router.use(cors(corsOptions));
+//router.use(cors(corsOptions));
 
 router.route("/")
-  .get(controller.list)
+  .get(cors(corsOptions), controller.list)
   .all(methodNotAllowed);
 
 module.exports = router;
