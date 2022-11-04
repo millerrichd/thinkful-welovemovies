@@ -3,7 +3,12 @@ const controller = require("./reviews.controller");
 const methodNotAllowed = require("../errors/methodNotAllowed");
 const cors = require("cors");
 
-router.use(cors());
+var corsOptions = {
+  origin: 'https://thinkful-welovemovies-frontend.vercel.app',
+  optionsSuccessStatus: 200
+}
+
+router.use(cors(corsOptions));
 
 router.route("/:reviewId")
   .put(controller.update)
