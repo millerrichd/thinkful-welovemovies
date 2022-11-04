@@ -11,7 +11,7 @@ var corsOptions = {
 //router.use(cors(corsOptions));
 
 router.route("/")
-  .get(cors(corsOptions), controller.list)
+  .get(controller.list)
   .all(methodNotAllowed);
 
 module.exports = router;

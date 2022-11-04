@@ -5,20 +5,18 @@ const cors = require("cors");
 
 var corsOptions = {
   origin: 'https://thinkful-welovemovies-frontend.vercel.app',
-  methods: "GET,PUT,POST,DELETE",
+  methods: [ "GET", "PUT", "POST", "DELETE" ],
   optionsSuccessStatus: 204
 }
 
 //router.use(cors(corsOptions));
 
 router.route("/")
-  .options(cors(corsOptions))
-  .get(cors(corsOptions), controller.list)
+  .get(controller.list)
   .all(methodNotAllowed);
 
 router.route("/:movieId")
-  .options(cors(corsOptions))
-  .get(cors(corsOptions), controller.read)
+  .get(controller.read)
   .all(methodNotAllowed);
 
 router.route("/:movieId/theaters")
@@ -26,8 +24,7 @@ router.route("/:movieId/theaters")
   .all(methodNotAllowed);
 
 router.route("/:movieId/reviews")
-  .options(cors(corsOptions))
-  .get(cors(corsOptions), controller.readReview)
+  .get(controller.readReview)
   .all(methodNotAllowed);
 
 module.exports = router;
